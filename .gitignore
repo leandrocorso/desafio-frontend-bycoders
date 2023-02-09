@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# my template reference does not need to be pushed to repository
+index.html
+style.css
