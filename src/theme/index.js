@@ -1,3 +1,5 @@
+import GlobalStyle from "./GlobalStyle";
+
 const colors = {
   white: "#fff",
   black: "#fff",
@@ -5,7 +7,7 @@ const colors = {
   gray: "#666",
   mediumGray: "#ddd",
   lightGray: "#eee",
-  blue: "#900",
+  blue: "#009",
 };
 
 const fonts = {
@@ -16,6 +18,9 @@ const fonts = {
     color: colors.darkGray,
     lineHeight: 1,
   },
+};
+
+const elements = {
   headings: {
     weight: 700,
     size: {
@@ -48,7 +53,8 @@ const fonts = {
 const theme = {
   colors,
   fonts,
+  elements,
   spacement: "1rem",
 };
 
-export default theme;
+export { theme, GlobalStyle };
