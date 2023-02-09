@@ -54,22 +54,22 @@ export default createGlobalStyle`${({ theme: { colors, elements, fonts } }) => `
 
   a {
     color: ${elements.links.color};
-    decoration: ${elements.links.decoration};
+    text-decoration: ${elements.links.decoration};
   }
 
   a:hover {
     color: ${elements.links.hover.color};
-    decoration: ${elements.links.hover.decoration};
+    text-decoration: ${elements.links.hover.decoration};
   }
 
   a.active {
     color: ${elements.links.active.color};
-    decoration: ${elements.links.active.decoration};
+    text-decoration: ${elements.links.active.decoration};
   }
 
   a.active:hover {
     color: ${elements.links.active.hover.color};
-    decoration: ${elements.links.active.hover.decoration};
+    text-decoration: ${elements.links.active.hover.decoration};
   }
 
 `}`;
