@@ -1,13 +1,12 @@
 {
   "extends": [
-    "stylelint-config-standard", 
-    "stylelint-config-prettier", 
+    "stylelint-config-standard",
+    "stylelint-config-prettier",
     "stylelint-config-styled-components",
     "stylelint-config-idiomatic-order"
   ],
   "processors": ["stylelint-processor-styled-components"],
   "customSyntax": "postcss-scss",
-  "plugins": [
-		"stylelint-order"
-	]
+  "plugins": ["stylelint-order"],
+  "rules": { "value-keyword-case": null }
 }
