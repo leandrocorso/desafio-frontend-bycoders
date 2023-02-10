@@ -6,6 +6,7 @@ import Advertising from "./components/_template/Advertising";
 import Featured from "./components/_template/Featured";
 import MoreVideos from "./components/_template/MoreVideos";
 import SiteHeader from "./components/_template/SiteHeader";
+import Loader from "./components/Loader";
 import { fetchVideos, selectVideos } from "./redux/videoSlice";
 
 const StyledApp = styled.div`
@@ -32,7 +33,7 @@ function App() {
   return (
     <StyledApp>
       <SiteHeader />
-      {videos.isLoading && <div>Carregando vídeos</div>}
+      {videos.isLoading && <Loader />}
       {!videos.isLoading && videos.error ? (
         <div>Erro: {videos.error}</div>
       ) : null}
