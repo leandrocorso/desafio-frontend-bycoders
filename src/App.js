@@ -2,10 +2,13 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-import Advertising from "./components/_template/Advertising";
-import Featured from "./components/_template/Featured";
-import MoreVideos from "./components/_template/MoreVideos";
-import SiteHeader from "./components/_template/SiteHeader";
+import {
+  Advertising,
+  Featured,
+  MoreVideos,
+  SiteHeader,
+} from "./components/_template";
+
 import Loader from "./components/Loader";
 import { fetchVideos, selectVideos } from "./redux/videoSlice";
 
