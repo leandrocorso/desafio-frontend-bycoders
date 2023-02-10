@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import MenuWrapper from "./MenuWrapper";
+
 import MenuItem from "./MenuItem";
+import MenuWrapper from "./MenuWrapper";
 
 const StyledMenus = styled.div`
   grid-area: menu;

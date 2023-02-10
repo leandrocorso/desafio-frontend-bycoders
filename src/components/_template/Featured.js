@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { VideoPlayer, VideoList, VideoItem } from "../Video";
+
 import InnerWrapper from "../InnerWrapper";
+import { VideoItem,VideoList, VideoPlayer } from "../Video";
 
 const StyledFeatured = styled.div`
   grid-area: featured;

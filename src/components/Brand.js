@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { ReactComponent as Logo } from "../assets/logo.svg";
 
 const StyledBrand = styled.div`

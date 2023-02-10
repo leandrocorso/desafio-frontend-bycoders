@@ -1,11 +1,12 @@
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { ThemeProvider } from "styled-components";
 import { Provider } from "react-redux";
-import store from "./redux/store";
+import { ThemeProvider } from "styled-components";
+
 import App from "./App";
-import { theme, GlobalStyle } from "./theme";
+import store from "./redux/store";
+import { GlobalStyle,theme } from "./theme";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

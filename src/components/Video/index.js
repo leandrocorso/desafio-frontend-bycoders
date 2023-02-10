@@ -1,5 +1,5 @@
-import VideoPlayer from "./VideoPlayer";
-import VideoList from "./VideoList";
 import VideoItem from "./VideoItem";
+import VideoList from "./VideoList";
+import VideoPlayer from "./VideoPlayer";
 
-export { VideoPlayer, VideoList, VideoItem };
+export { VideoItem,VideoList, VideoPlayer };

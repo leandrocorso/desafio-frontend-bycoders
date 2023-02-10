@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { VideoItem, VideoList } from "../Video";
+
 import InnerWrapper from "../InnerWrapper";
+import { VideoItem, VideoList } from "../Video";
 
 const StyledMoreVideos = styled.div`
   grid-area: more-videos;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import Anonymous from "./Anonymous";
 import Logged from "./Logged";
 

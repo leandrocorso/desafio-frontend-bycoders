@@ -1,4 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk,createSlice } from "@reduxjs/toolkit";
+
 import fetchAllVideos from "../services/youtube";
 
 const initialState = {

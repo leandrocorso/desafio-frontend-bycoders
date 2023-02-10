@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-import { fetchVideos, selectVideos } from "./redux/videoSlice";
 import Advertising from "./components/_template/Advertising";
 import Featured from "./components/_template/Featured";
 import MoreVideos from "./components/_template/MoreVideos";
 import SiteHeader from "./components/_template/SiteHeader";
+import { fetchVideos, selectVideos } from "./redux/videoSlice";
 
 const StyledApp = styled.div`
   max-width: 95vw;

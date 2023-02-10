@@ -1,8 +1,9 @@
 import styled from "styled-components";
+
 import AuthStatus from "../AuthStatus";
 import Brand from "../Brand";
-import SearchForm from "../SearchForm";
 import Menu from "../Menu";
+import SearchForm from "../SearchForm";
 
 const StyledHeader = styled.div`
   grid-area: header;

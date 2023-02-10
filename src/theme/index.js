@@ -57,4 +57,4 @@ const theme = {
   spacement: "1rem",
 };
 
-export { theme, GlobalStyle };
+export { GlobalStyle,theme };
