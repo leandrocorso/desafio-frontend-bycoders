@@ -1,4 +1,8 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+
+import { fetchVideos, selectVideos } from "./redux/videoSlice";
 import Advertising from "./components/_template/Advertising";
 import Featured from "./components/_template/Featured";
 import MoreVideos from "./components/_template/MoreVideos";
@@ -18,12 +22,27 @@ const StyledApp = styled.div`
 `;
 
 function App() {
+  const videos = useSelector(selectVideos);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchVideos());
+  }, []);
+
   return (
     <StyledApp>
       <SiteHeader />
-      <Featured />
-      <Advertising />
-      <MoreVideos />
+      {videos.isLoading && <div>Carregando vídeos</div>}
+      {!videos.isLoading && videos.error ? (
+        <div>Erro: {videos.error}</div>
+      ) : null}
+      {!videos.isLoading && videos.data.items && (
+        <>
+          <Featured />
+          <Advertising />
+          <MoreVideos />
+        </>
+      )}
     </StyledApp>
   );
 }
