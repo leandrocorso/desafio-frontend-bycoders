@@ -1,4 +1,4 @@
-import { createAsyncThunk,createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import fetchAllVideos from "../services/youtube";
 
@@ -13,6 +13,13 @@ export const fetchVideos = createAsyncThunk("videos/getVideos", async () => {
   return data;
 });
 
+const separateVideosForUseCase = (videoList) => {
+  const videoOnPlayer = videoList.shift() || {};
+  const nextVideos = videoList.splice(0, 3) || [];
+  const moreVideos = videoList || [];
+  return { videoOnPlayer, nextVideos, moreVideos };
+};
+
 const videosSlice = createSlice({
   name: "video",
   initialState,
@@ -20,9 +27,12 @@ const videosSlice = createSlice({
     builder.addCase(fetchVideos.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(fetchVideos.fulfilled, (state, action) => {
+    builder.addCase(fetchVideos.fulfilled, (state, { payload }) => {
       state.isLoading = initialState.isLoading;
-      state.data = action.payload;
+      state.data = {
+        ...payload,
+        itemsByUse: separateVideosForUseCase(payload.items),
+      };
       state.error = initialState.error;
     });
     builder.addCase(fetchVideos.rejected, (state, action) => {

@@ -8,7 +8,7 @@ import {
   MoreVideos,
   SiteHeader,
 } from "./components/_template";
-
+import ErrorMessage from "./components/ErrorMessage";
 import Loader from "./components/Loader";
 import { fetchVideos, selectVideos } from "./redux/videoSlice";
 
@@ -26,7 +26,7 @@ const StyledApp = styled.div`
 `;
 
 function App() {
-  const videos = useSelector(selectVideos);
+  const { isLoading, error } = useSelector(selectVideos);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,11 +36,9 @@ function App() {
   return (
     <StyledApp>
       <SiteHeader />
-      {videos.isLoading && <Loader />}
-      {!videos.isLoading && videos.error ? (
-        <div>Erro: {videos.error}</div>
-      ) : null}
-      {!videos.isLoading && videos.data.items && (
+      {isLoading && <Loader />}
+      {error && <ErrorMessage msg={error} />}
+      {!isLoading && !error && (
         <>
           <Featured />
           <Advertising />

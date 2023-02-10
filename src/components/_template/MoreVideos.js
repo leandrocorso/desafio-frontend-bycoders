@@ -1,5 +1,8 @@
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
+import { selectVideos } from "../../redux/videoSlice";
 import InnerWrapper from "../InnerWrapper";
 import { VideoItem, VideoList } from "../Video";
 
@@ -14,19 +17,23 @@ const StyledMoreVideos = styled.div`
   }
 `;
 
-const videoItems = [
-  { id: 1, title: "title 1", thumb: "thumb" },
-  { id: 2, title: "title 2", thumb: "thumb" },
-  { id: 3, title: "title 3", thumb: "thumb" },
-];
-
 function MoreVideos() {
+  const videos = useSelector(selectVideos);
+
+  const [moreVideos, setMoreVideos] = useState([]);
+
+  useEffect(() => {
+    if (videos?.data?.itemsByUse?.moreVideos) {
+      setMoreVideos(videos.data.itemsByUse.moreVideos);
+    }
+  }, [videos]);
+
   return (
     <StyledMoreVideos className="more-videos">
       <InnerWrapper>
         <VideoList>
-          {videoItems.map(({ id, title, thumb }) => (
-            <VideoItem key={id} title={title} thumb={thumb} />
+          {moreVideos.map(({ id, etag, kind }) => (
+            <VideoItem key={id} title={etag} thumb={kind} />
           ))}
         </VideoList>
       </InnerWrapper>

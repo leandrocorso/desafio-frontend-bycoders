@@ -11,8 +11,7 @@ async function fetchAllVideos() {
   const params = [part, chart, maxResults, `key=${key}`].join("&");
 
   try {
-    const result = await axios.get(`${baseUrl}/videos?${params}`);
-    return result;
+    return await axios.get(`${baseUrl}/videos?${params}`);
   } catch (error) {
     throw new Error(error);
   }

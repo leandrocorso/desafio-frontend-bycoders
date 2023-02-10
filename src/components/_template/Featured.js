@@ -1,7 +1,10 @@
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
+import { selectVideos } from "../../redux/videoSlice";
 import InnerWrapper from "../InnerWrapper";
-import { VideoItem,VideoList, VideoPlayer } from "../Video";
+import { VideoItem, VideoList, VideoPlayer } from "../Video";
 
 const StyledFeatured = styled.div`
   grid-area: featured;
@@ -30,24 +33,31 @@ const StyledFeatured = styled.div`
 `;
 
 function Featured() {
-  const videoItems = [
-    { id: 1, title: "title 1", thumb: "thumb" },
-    { id: 2, title: "title 2", thumb: "thumb" },
-    { id: 3, title: "title 3", thumb: "thumb" },
-  ];
+  const videos = useSelector(selectVideos);
+
+  const [nextVideos, setNextVideos] = useState([]);
+
+  useEffect(() => {
+    if (videos?.data?.itemsByUse?.nextVideos) {
+      setNextVideos(videos.data.itemsByUse.nextVideos);
+    }
+  }, [videos]);
 
   return (
     <StyledFeatured className="featured">
       <InnerWrapper>
         <h3>Featured</h3>
+
         <div className="featured__wrapper">
           <VideoPlayer />
 
-          <VideoList>
-            {videoItems.map(({ id, title, thumb }) => (
-              <VideoItem key={id} title={title} thumb={thumb} />
-            ))}
-          </VideoList>
+          {nextVideos && (
+            <VideoList>
+              {nextVideos.map(({ id, etag, kind }) => (
+                <VideoItem key={id} title={etag} thumb={kind} />
+              ))}
+            </VideoList>
+          )}
         </div>
       </InnerWrapper>
     </StyledFeatured>
