@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 
 import fetchAllVideos from "../services/youtube";
 
@@ -13,16 +13,45 @@ export const fetchVideos = createAsyncThunk("videos/getVideos", async () => {
   return data;
 });
 
-const separateVideosForUseCase = (videoList) => {
+const separateVideosForUseCase = (videoListStore) => {
+  const videoList = [...videoListStore];
   const videoOnPlayer = videoList.shift() || {};
   const nextVideos = videoList.splice(0, 3) || [];
   const moreVideos = videoList || [];
   return { videoOnPlayer, nextVideos, moreVideos };
 };
 
+const changeVideosOrder = (videoId, videoListStore) => {
+  const videoList = [...videoListStore];
+  let videoToPlay = {};
+
+  videoList.forEach((item, index) => {
+    if (item.id === videoId) {
+      videoToPlay = videoList.splice(index, 1).shift();
+    }
+  });
+
+  videoList.unshift(videoToPlay);
+  return videoList;
+};
+
 const videosSlice = createSlice({
   name: "video",
   initialState,
+  reducers: {
+    fetchVideoById: (state) => {
+      state.data = true;
+    },
+    playVideo: (state, { payload }) => {
+      const currentState = current(state);
+      const newVideosOrder = changeVideosOrder(
+        payload,
+        currentState.data.items
+      );
+      state.data.items = newVideosOrder;
+      state.data.itemsByUse = separateVideosForUseCase(newVideosOrder);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchVideos.pending, (state) => {
       state.isLoading = true;
@@ -41,13 +70,8 @@ const videosSlice = createSlice({
       state.error = action.error.message;
     });
   },
-  reducers: {
-    fetchVideoById: (state) => {
-      state.data = true;
-    },
-  },
 });
 
-export const { fetchVideoById } = videosSlice;
+export const { fetchVideoById, playVideo } = videosSlice.actions;
 export const selectVideos = (state) => state.videos;
 export default videosSlice.reducer;

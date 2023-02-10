@@ -51,10 +51,10 @@ function Featured() {
         <div className="featured__wrapper">
           <VideoPlayer />
 
-          {nextVideos && (
+          {nextVideos.length > 0 && (
             <VideoList>
-              {nextVideos.map(({ id, etag, kind }) => (
-                <VideoItem key={id} title={etag} thumb={kind} />
+              {nextVideos.map(({ id, snippet }) => (
+                <VideoItem key={id} id={id} snippet={snippet} />
               ))}
             </VideoList>
           )}

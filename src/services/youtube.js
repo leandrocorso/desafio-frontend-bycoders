@@ -5,7 +5,7 @@ const baseUrl = "https://www.googleapis.com/youtube/v3";
 const key = process.env.REACT_APP_YT_API_KEY;
 
 async function fetchAllVideos() {
-  const part = `part=${["id"].join("&part=")}`;
+  const part = `part=${["id", "snippet"].join("&part=")}`;
   const chart = "chart=mostPopular";
   const maxResults = "maxResults=12";
   const params = [part, chart, maxResults, `key=${key}`].join("&");
