@@ -16,12 +16,14 @@ function Search({ className }) {
 
   const saveKeywordToSearchedTerms = () => {
     const searchedTerms = localStorage.getItem("searchedTerms");
-    const termsList = JSON.parse(searchedTerms);
-    termsList.forEach((item, index) => {
-      if (item === keyword) {
-        termsList.splice(index, 1);
-      }
-    });
+    const termsList = JSON.parse(searchedTerms) || [];
+    if (termsList) {
+      termsList.forEach((item, index) => {
+        if (item === keyword) {
+          termsList.splice(index, 1);
+        }
+      });
+    }
     termsList.unshift(keyword);
     localStorage.setItem("searchedTerms", JSON.stringify(termsList));
     dispatch(setSearchedTerms(termsList));
