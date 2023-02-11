@@ -1,23 +1,28 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
+import { selectUser, setAccessToken } from "../../redux/userSlice";
 import CreateAccountLink from "./CreateAccountLink";
 import SignInLink from "./SignInLink";
 import SignOutLink from "./SignOutLink";
 
-const isLogged = false;
-
 function AuthStatus({ className }) {
-  const [status, setStatus] = useState("out");
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+
+  const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
-    const userStatus = isLogged ? "in" : "out";
-    setStatus(userStatus);
-  }, [isLogged]);
+    const accessToken = localStorage.getItem("access_token");
+    const tokenStatus = !!accessToken;
+    setIsLogged(tokenStatus);
+    dispatch(setAccessToken(accessToken || null));
+  }, [user.accessToken]);
 
   return (
     <div className={`${className}`}>
-      <div className={`${className}--logged-${status}`}>
+      <div className={`${className}--logged-${isLogged ? "in" : "out"}`}>
         {isLogged ? (
           <SignOutLink />
         ) : (

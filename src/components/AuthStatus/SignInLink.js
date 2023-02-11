@@ -1,13 +1,21 @@
 import { useGoogleLogin } from "@react-oauth/google";
+import { useDispatch } from "react-redux";
+
+import { setAccessToken } from "../../redux/userSlice";
 
 function SignInLink() {
-  const login = useGoogleLogin({
-    onSuccess: (tokenResponse) => console.log(tokenResponse),
+  const dispatch = useDispatch();
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: (authData) => {
+      localStorage.setItem("access_token", authData.access_token);
+      dispatch(setAccessToken(authData.access_token));
+    },
   });
 
   const handleLogin = (e) => {
     e.preventDefault();
-    login();
+    googleLogin();
   };
 
   return (
