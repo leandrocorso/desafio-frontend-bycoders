@@ -8,7 +8,7 @@ const initialState = {
   data: {
     keyword: "",
   },
-  searchTerms: [],
+  searchedTerms: [],
 };
 
 export const fetchVideos = createAsyncThunk("videos/getVideos", async () => {
@@ -70,6 +70,9 @@ const videosSlice = createSlice({
     clearKeyword: (state) => {
       state.data.keyword = initialState.data.keyword;
     },
+    setSearchedTerms: (state, { payload }) => {
+      state.searchedTerms = payload || initialState.searchedTerms;
+    },
   },
   extraReducers: (builder) => {
     // Fetch
@@ -113,7 +116,9 @@ const videosSlice = createSlice({
   },
 });
 
-export const { playVideo, clearKeyword } = videosSlice.actions;
+export const { playVideo, clearKeyword, setSearchedTerms } =
+  videosSlice.actions;
 export const selectVideos = (state) => state.videos;
+export const selectSearchedTerms = (state) => state.videos.searchedTerms;
 export const selectKeyword = (state) => state.videos.data.keyword;
 export default videosSlice.reducer;

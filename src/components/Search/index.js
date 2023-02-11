@@ -2,7 +2,11 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { clearKeyword, searchVideos } from "../../redux/videoSlice";
+import {
+  clearKeyword,
+  searchVideos,
+  setSearchedTerms,
+} from "../../redux/videoSlice";
 import SearchedTerms from "./SearchedTerms";
 
 function Search({ className }) {
@@ -20,6 +24,7 @@ function Search({ className }) {
     });
     termsList.unshift(keyword);
     localStorage.setItem("searchedTerms", JSON.stringify(termsList));
+    dispatch(setSearchedTerms(termsList));
   };
 
   const handleSearch = (e) => {
