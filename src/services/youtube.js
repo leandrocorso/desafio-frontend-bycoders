@@ -6,7 +6,7 @@ const key = process.env.REACT_APP_YT_API_KEY;
 async function fetchAll() {
   const part = `part=${["id", "snippet"].join("&part=")}`;
   const chart = "chart=mostPopular";
-  const maxResults = "maxResults=12";
+  const maxResults = "maxResults=13";
   const params = [part, chart, maxResults, `key=${key}`].join("&");
 
   try {
@@ -18,7 +18,7 @@ async function fetchAll() {
 
 async function search(keyword) {
   const part = `part=${["id", "snippet"].join("&part=")}`;
-  const maxResults = "maxResults=12";
+  const maxResults = "maxResults=13";
   const type = "type=video";
   const params = [part, maxResults, type, `key=${key}`].join("&");
 

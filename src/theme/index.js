@@ -8,6 +8,7 @@ const colors = {
   mediumGray: "#ddd",
   lightGray: "#eee",
   blue: "#009",
+  primary: "#02be3b",
 };
 
 const fonts = {
@@ -57,4 +58,4 @@ const theme = {
   spacement: "1rem",
 };
 
-export { GlobalStyle,theme };
+export { GlobalStyle, theme };

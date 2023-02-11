@@ -1,26 +1,23 @@
-import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import { ReactComponent as Logo } from "../assets/logo.svg";
 
-const StyledBrand = styled.div`
-  display: flex;
-  width: 300px;
-  grid-area: brand;
-  align-items: center;
-
-  .logo {
-    width: 190px;
-  }
-`;
-
-function Brand() {
+function Brand({ className }) {
   return (
-    <StyledBrand>
+    <div className={className}>
       <div className="logo">
         <Logo />
       </div>
-    </StyledBrand>
+    </div>
   );
 }
+
+Brand.propTypes = {
+  className: PropTypes.string,
+};
+
+Brand.defaultProps = {
+  className: "brand",
+};
 
 export default Brand;

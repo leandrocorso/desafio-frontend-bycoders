@@ -1,26 +1,41 @@
-import styled from "styled-components";
+import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 
-import Anonymous from "./Anonymous";
-import Logged from "./Logged";
+import CreateAccountLink from "./CreateAccountLink";
+import SignInLink from "./SignInLink";
+import SignOutLink from "./SignOutLink";
 
 const isLogged = false;
 
-const StyledAuthFeedback = styled.div`
-  grid-area: auth-status;
-  display: flex;
-  justify-content: flex-end;
+function AuthStatus({ className }) {
+  const [status, setStatus] = useState("out");
 
-  a {
-    color: ${({ theme }) => theme.colors.blue};
-  }
-`;
+  useEffect(() => {
+    const userStatus = isLogged ? "in" : "out";
+    setStatus(userStatus);
+  }, [isLogged]);
 
-function AuthFeedback() {
   return (
-    <StyledAuthFeedback>
-      {isLogged ? <Logged /> : <Anonymous />}
-    </StyledAuthFeedback>
+    <div className={`${className}`}>
+      <div className={`${className}--logged-${status}`}>
+        {isLogged ? (
+          <SignOutLink />
+        ) : (
+          <>
+            <CreateAccountLink /> or <SignInLink />
+          </>
+        )}
+      </div>
+    </div>
   );
 }
 
-export default AuthFeedback;
+AuthStatus.propTypes = {
+  className: PropTypes.string,
+};
+
+AuthStatus.defaultProps = {
+  className: "auth-status",
+};
+
+export default AuthStatus;

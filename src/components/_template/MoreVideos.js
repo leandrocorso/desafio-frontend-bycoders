@@ -1,43 +1,27 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
 
 import { selectVideos } from "../../redux/videoSlice";
 import InnerWrapper from "../InnerWrapper";
-import { VideoItem, VideoList } from "../Video";
-
-const StyledMoreVideos = styled.div`
-  grid-area: more-videos;
-  background-color: ${({ theme: { colors } }) => colors.lightGray};
-
-  .videos {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: ${({ theme }) => theme.spacement};
-  }
-`;
+import { VideoList } from "../Video";
 
 function MoreVideos() {
-  const videos = useSelector(selectVideos);
-
-  const [moreVideos, setMoreVideos] = useState([]);
+  const storageVideos = useSelector(selectVideos);
+  const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    if (videos?.data?.itemsByUse?.moreVideos) {
-      setMoreVideos(videos.data.itemsByUse.moreVideos);
-    }
-  }, [videos]);
+    const moreVideos = storageVideos.data.itemsByUse?.moreVideos;
+    if (moreVideos) setVideos(moreVideos);
+  }, [storageVideos]);
 
   return (
-    <StyledMoreVideos className="more-videos">
+    <div className="more-videos">
       <InnerWrapper>
-        <VideoList>
-          {moreVideos.map(({ videoId, snippet }) => (
-            <VideoItem key={videoId} videoId={videoId} snippet={snippet} />
-          ))}
-        </VideoList>
+        <h3 className="more-videos__title">More videos</h3>
+
+        {videos && <VideoList className="more-videos__list" videos={videos} />}
       </InnerWrapper>
-    </StyledMoreVideos>
+    </div>
   );
 }
 

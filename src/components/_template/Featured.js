@@ -1,66 +1,34 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
 
 import { selectVideos } from "../../redux/videoSlice";
 import InnerWrapper from "../InnerWrapper";
-import { VideoItem, VideoList, VideoPlayer } from "../Video";
-
-const StyledFeatured = styled.div`
-  grid-area: featured;
-  width: 100%;
-  background-color: #ddd;
-
-  .featured__wrapper {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    gap: ${({ theme }) => theme.spacement};
-  }
-
-  .video-player {
-    background-color: aqua;
-  }
-
-  .videos {
-    width: 100%;
-    flex-direction: column;
-    justify-content: space-between;
-
-    &__thumb {
-      background-color: aquamarine;
-    }
-  }
-`;
+import { VideoList, VideoPlayer } from "../Video";
 
 function Featured() {
-  const videos = useSelector(selectVideos);
-
-  const [nextVideos, setNextVideos] = useState([]);
+  const storageVideos = useSelector(selectVideos);
+  const [videos, setVideos] = useState([]);
+  const [keyword, setKeyword] = useState([]);
 
   useEffect(() => {
-    if (videos?.data?.itemsByUse?.nextVideos) {
-      setNextVideos(videos.data.itemsByUse.nextVideos);
-    }
-  }, [videos]);
+    const nextVideos = storageVideos.data.itemsByUse?.nextVideos;
+    if (keyword) setKeyword(keyword);
+    if (nextVideos) setVideos(nextVideos);
+  }, [storageVideos]);
 
   return (
-    <StyledFeatured className="featured">
+    <div className="featured">
       <InnerWrapper>
-        <h3>Featured</h3>
+        <h3 className="featured__title">
+          {keyword ? `Resultados da pesquisa por "${keyword}"` : "Featured"}
+        </h3>
 
         <div className="featured__wrapper">
-          <VideoPlayer />
-
-          {nextVideos.length > 0 && (
-            <VideoList>
-              {nextVideos.map(({ videoId, snippet }) => (
-                <VideoItem key={videoId} videoId={videoId} snippet={snippet} />
-              ))}
-            </VideoList>
-          )}
+          <VideoPlayer className="featured__player" />
+          {videos && <VideoList className="featured__list" videos={videos} />}
         </div>
       </InnerWrapper>
-    </StyledFeatured>
+    </div>
   );
 }
 

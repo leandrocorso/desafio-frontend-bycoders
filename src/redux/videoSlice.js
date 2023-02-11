@@ -5,7 +5,9 @@ import { fetchAll, search } from "../services/youtube";
 const initialState = {
   isLoading: false,
   error: "",
-  data: {},
+  data: {
+    keyword: "",
+  },
   searchTerms: [],
 };
 
@@ -26,7 +28,7 @@ export const searchVideos = createAsyncThunk(
       ...item,
       videoId: item.id.videoId,
     }));
-    return { ...data, items };
+    return { keyword, ...data, items };
   }
 );
 
@@ -65,6 +67,9 @@ const videosSlice = createSlice({
       state.data.items = newVideosOrder;
       state.data.itemsByUse = separateVideosForUseCase(newVideosOrder);
     },
+    clearKeyword: (state) => {
+      state.data.keyword = initialState.data.keyword;
+    },
   },
   extraReducers: (builder) => {
     // Fetch
@@ -75,12 +80,14 @@ const videosSlice = createSlice({
       state.isLoading = initialState.isLoading;
       state.data = {
         ...payload,
+        keyword: initialState.keyword,
         itemsByUse: separateVideosForUseCase(payload.items),
       };
       state.error = initialState.error;
     });
     builder.addCase(fetchVideos.rejected, (state, action) => {
       state.isLoading = initialState.isLoading;
+      state.keyword = initialState.keyword;
       state.data = initialState.data;
       state.error = action.error.message;
     });
@@ -90,9 +97,7 @@ const videosSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(searchVideos.fulfilled, (state, { payload }) => {
-      // const { searchTerms } = current(state);
       state.isLoading = initialState.isLoading;
-      // state.searchTerms = searchTerms.push(payload);
       state.data = {
         ...payload,
         itemsByUse: separateVideosForUseCase(payload.items),
@@ -101,12 +106,14 @@ const videosSlice = createSlice({
     });
     builder.addCase(searchVideos.rejected, (state, action) => {
       state.isLoading = initialState.isLoading;
+      state.keyword = initialState.keyword;
       state.data = initialState.data;
       state.error = action.error.message;
     });
   },
 });
 
-export const { playVideo } = videosSlice.actions;
+export const { playVideo, clearKeyword } = videosSlice.actions;
 export const selectVideos = (state) => state.videos;
+export const selectKeyword = (state) => state.videos.data.keyword;
 export default videosSlice.reducer;

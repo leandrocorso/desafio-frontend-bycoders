@@ -1,17 +1,29 @@
 import PropTypes from "prop-types";
-import styled from "styled-components";
 
-const StyledVideoList = styled.ul`
-  display: flex;
-  gap: 0.5rem;
-`;
+import VideoItem from "./VideoItem";
+import videoPropTypes from "./videoPropTypes";
 
-function VideoList({ children }) {
-  return <StyledVideoList className="videos">{children}</StyledVideoList>;
+function VideoList({ className, videos }) {
+  return (
+    <ul className={className}>
+      {videos.map((video) => (
+        <VideoItem
+          key={video.videoId}
+          className={`${className}__item`}
+          videoProps={video}
+        />
+      ))}
+    </ul>
+  );
 }
 
 VideoList.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  className: PropTypes.string,
+  videos: PropTypes.arrayOf(PropTypes.shape(videoPropTypes)).isRequired,
+};
+
+VideoList.defaultProps = {
+  className: "video-list",
 };
 
 export default VideoList;
