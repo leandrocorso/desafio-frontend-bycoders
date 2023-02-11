@@ -1,63 +1,69 @@
 # 🏁 Desafio de programação - Vaga Front-End 🏁
 
-**Este teste tem por objetivos principais avaliar:**
-
-- Habilidades no desenvolvimento frontend
-- Conceitos de UI e UX aplicados
-
----
-
 ## Instruções
 
-- Primeiro, faça um fork deste projeto para sua conta no Github (crie uma se você não possuir).
-- Em seguida, implemente o projeto tal qual descrito abaixo, em seu clone local.
-- Por fim, envie via email um arquivo patch para seu contato na Bycoders\_.
+Após clonar o projeto pode usar o comando:
+
+`yarn install` e em seguida: `yarn start`
+
+Em seguida a aplicação será aberta no endereço [http://localhost:3000](http://localhost:3000).
+
+## Iniciando o desenvolvimento
+
+Primeiramente preparei o ambiente React.JS com o boilerplate CRA (Create React App) por já estar com a maioria das features necessárias instaladas. Após isso procurei usar linters e plugins que fossem relevantes:
+
+- **ESlint**: Linter essencial para trabalhar com EcmaScript.
+- **AirBnb**: Esquema popular de configurações para o ESlint.
+- **Sort import**: Padroniza a ordem das importações e exportações dos componentes React.
+- **Prettier**: Formatador de código em tempo de desenvolvimento.
+- **lint staged**: Permite aplicação dos linters apenas para arquivos que foram alterados.
+- **Husky**: Permite rodar scripts no momento do commit, prevenindo que erros sejam enviados ao repositório.
+- **Stylelint**: Permite formatar código de estilos
+- **Postcss scss**: Dá suporte a pré-processadores de CSS ao Stylelint (com restrições)
+- **Selector BEM pattern**: Dá suporte ao padrão BEM (Block Element Modifier) de CSS.
 
 ---
 
-## Desafio 🚀 🚀 🚀
+## Outras bibliotecas
 
-![screen](/image.png)
+Para estilização optei pelo **StyledComponets** por ter já uma maior experiência com ele. Por ser um projeto de apenas uma página certamente não era necessário, mas optei por utilizá-lo apenas para agregar esse conhecimento ao teste. Optei por criar um tema de cores, fontes e espaçamentos padrão. Em seguida um arquivo de estilos globais que funciona como um "reset" de estilos e por fim, um único arquivo de estilos para montar o template. Sei que poderia aplicar estilos a cada componente, cheguei a fazer isso num momento. Refatorei pois os estilos estavam deixando o código desnecessariamente verboso.
 
-O desafio consiste em criar um projeto com o design da imagem **acima**, utilizando a [API do YouTube](https://developers.google.com/youtube/v3)
+Como optei por usar JavaScript e não TypeScript foi necessário o uso de **Prop-types** pois ocorre erro nos linters caso parâmetros sejam passados sem os devidos tipos.
 
-Utilize a [documentação](https://developers.google.com/youtube/v3/docs) para se orientar em como criar uma conta, logar no app, listar os vídeos do usuário, se inscrever em canais, enviar vídeos, ou o que mais você precisar.
+Para fazer a integração com a API do Google usei a biblioteca **@react-oauth/google**, isso tornou o processo bem mais ágil do que criar a integração do zero.
 
-O layout da **home** não precisa ser exatamente como o do wireframe. Você pode ficar a vontade para exibir os conteúdos/vídeos que achar melhor, desde que qualquer informação (vídeo, texto, cores, imagens) sejam exibidos de maneira organizada e bem distribuida entre a tela, fornecendo uma boa experiência para o usuário.
+Usei o **Axios** para consumir as informações e deixei as requisições num único arquivo na pastas "./src/services" que tem apenas a responsabilidade de recuperar as informações da API.
 
-**Antes de iniciar o teste**
+Para gerenciar o estado usei o **Redux** que com a função "createAsyncThunk" utiliza os serviços do Axios de forma assyncrona e envia para a "store" da aplicação. Aqui fiz uso de algumas funções impuras para formatar o estado conforme a necessidade dos componentes.
 
-1. Crie um projeto no [console de desenvolvedor](https://console.developers.google.com/projectcreate) da **Google**
-2. Ative a [YouTube Data API v3](https://console.developers.google.com/apis/api/youtube.googleapis.com/overview) nele
-3. Crie uma credencial de acesso para que seu app possa se comunicar com a API
+## Funcionalidades
 
-**Requisitos esperados na entrega do teste**
+### Pesquisa
 
-- [ ] Fornecer um mecanismo para o usuário poder pesquisar vídeos
-- [ ] Possuir home page que exiba algum conteúdo interessante para uma plataforma de vídeos
-- [ ] Fornecer uma estrutura de gerência do estado da aplicação
-- [ ] Possuir histórico das buscas realizadas (persistir localmente)
+A pesquisa por vídeos utiliza o Redux, gravando os termos de busca no estado global, mas também salva no **locaStorage** para que essa informação não seja perdida ao recarregar a página. A lista de termos pesquisados aparecem abaixo do campo de busca. Não há uma página de histórico de buscas, porém toda vez que um novo termo é pesquisado ele é incorporado à lista e é filtrado pela palavra-chave (apenas leitura), conforme as imagens abaixo:
 
-**Requisitos extras**
+![search on redux](/search-redux.png)
+Usando Redux
 
-- [ ] Permitir cadastro de usuário / login através da API do YouTube + OAuth2
+![search localstorage](/search-localstorage.png)
+Usando LocalStorage
+
+### Login do Google
+
+Segui os passos para geração do app no Google Cloud conforme solicitado na documentação. Após login o "access_token" fica salvo no localStorage e também no estado global. Basicamente uso a presença do token para determinar se o usuário está logado ou não. o Login é exigido clicando no link do topo do site, do lado direito.
+
+![link de login](login-google.png)
+
+### Requisitos do teste
+
+Sendo assim acredito ter fechado os requisitos esperados, que são:
+
+- [x] Fornecer um mecanismo para o usuário poder pesquisar vídeos
+- [x] Possuir home page que exiba algum conteúdo interessante para uma plataforma de vídeos
+- [x] Fornecer uma estrutura de gerência do estado da aplicação
+- [x] Possuir histórico das buscas realizadas (persistir localmente)
+
+Dos requisitos extras, como disse anteriormente fiz o login, o restante não consegui resolver:
+
+- [-] Permitir cadastro de usuário / login através da API do YouTube + OAuth2
 - [ ] Permitir upload de vídeo para a API do YouTube
-
----
-
-## Pontos principais
-
-- Clean code
-- Conhecimento de boas práticas / design patterns
-- Demonstração de boa gestão do estado do app
-
----
-
-## Pontos extras
-
-- Uso de frameworks / libs
-- Testes
-- Componetização do app
-- Uso de linters
-
----
