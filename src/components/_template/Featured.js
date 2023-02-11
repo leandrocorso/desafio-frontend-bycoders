@@ -53,8 +53,8 @@ function Featured() {
 
           {nextVideos.length > 0 && (
             <VideoList>
-              {nextVideos.map(({ id, snippet }) => (
-                <VideoItem key={id} id={id} snippet={snippet} />
+              {nextVideos.map(({ videoId, snippet }) => (
+                <VideoItem key={videoId} videoId={videoId} snippet={snippet} />
               ))}
             </VideoList>
           )}

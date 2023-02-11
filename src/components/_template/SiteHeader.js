@@ -3,7 +3,7 @@ import styled from "styled-components";
 import AuthStatus from "../AuthStatus";
 import Brand from "../Brand";
 import Menu from "../Menu";
-import SearchForm from "../SearchForm";
+import SearchForm from "../Search/SearchForm";
 
 const StyledHeader = styled.div`
   grid-area: header;

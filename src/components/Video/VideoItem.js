@@ -23,16 +23,20 @@ const StyledThumb = styled.div`
   /* background: url(${({ url }) => url}) center no-repeat; */
 `;
 
-function VideoItem({ id, snippet }) {
+function VideoItem({ videoId, snippet }) {
   const dispatch = useDispatch();
-  const handlePlay = (videoId) => dispatch(playVideo(videoId));
+
+  const handlePlay = (e) => {
+    e.preventDefault();
+    dispatch(playVideo(videoId));
+  };
 
   const { title, channelTitle } = snippet;
   const thumb = snippet.thumbnails?.default;
 
   return (
     <StyledVideoItem className="videos__item">
-      <a href="#video" onClick={() => handlePlay(id)}>
+      <a href="#video" onClick={(e) => handlePlay(e)}>
         <StyledThumb>
           <img src={thumb?.url} alt={title} />
         </StyledThumb>
@@ -43,7 +47,7 @@ function VideoItem({ id, snippet }) {
 }
 
 VideoItem.propTypes = {
-  id: PropTypes.string.isRequired,
+  videoId: PropTypes.string.isRequired,
   snippet: PropTypes.shape({
     title: PropTypes.string,
     channelTitle: PropTypes.string,

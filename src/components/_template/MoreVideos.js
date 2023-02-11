@@ -32,8 +32,8 @@ function MoreVideos() {
     <StyledMoreVideos className="more-videos">
       <InnerWrapper>
         <VideoList>
-          {moreVideos.map(({ id, snippet }) => (
-            <VideoItem key={id} id={id} snippet={snippet} />
+          {moreVideos.map(({ videoId, snippet }) => (
+            <VideoItem key={videoId} videoId={videoId} snippet={snippet} />
           ))}
         </VideoList>
       </InnerWrapper>

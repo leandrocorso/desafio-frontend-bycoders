@@ -19,7 +19,7 @@ function VideoPlayer() {
       <iframe
         width="560"
         height="315"
-        src={`https://www.youtube-nocookie.com/embed/${videoOnPlayer.id}?autoplay=1`}
+        src={`https://www.youtube-nocookie.com/embed/${videoOnPlayer.videoId}?autoplay=1`}
         title={videoOnPlayer.title}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
